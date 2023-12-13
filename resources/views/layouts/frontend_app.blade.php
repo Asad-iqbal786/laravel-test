@@ -26,7 +26,26 @@
                         <li><a href="{{route('allProducts')}}">Products</a></li>
                         <li><a href="">About</a></li>
                         <li><a href="">Contact</a></li>
-                        <li><a href="{{route('login')}}">login</a></li>
+                        @auth
+                        @if(auth()->user()->role == 'admin')
+                            <li>
+                                <a href="{{ route('adminHomePage') }}">Admin Dashboard</a>
+                            </li>
+                        @elseif(auth()->user()->role == 'seller')
+                            <li>
+                                <a href="{{ route('sellerHomePage') }}">Seller Dashboard</a>
+                            </li>
+                        @elseif(auth()->user()->role == 'buyer')
+                            <li>
+                                <a href="{{ route('dashboard') }}">Buyer Dashboard</a>
+                            </li>
+                        @endif
+                    @else
+                        <li>
+                            <a href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endauth
+                    
                     </ul>
                 </nav>
                 <a href="{{route('userCart')}}"><img src="{{asset('frontend/images/cart.png')}}" width="30px" height="30px"></a>
