@@ -51,6 +51,7 @@ class OrderController extends Controller
 
         $order_id = DB::getpdo()->lastInsertId();
         $this->addOrderProducts($order,$getCart,$order_id, $invoice);
+        Cart::where('user_id', $auth->id)->delete();
 
         Session::flash('success_message', 'Order created successfully!');
         DB::commit();
